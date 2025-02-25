@@ -7,6 +7,7 @@ interface IEnv {
   clientId: string;
   clientSecret: string;
   redirectUri: string;
+  jwtSecret: string;
 }
 
 const env: IEnv = {
@@ -14,6 +15,7 @@ const env: IEnv = {
   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
   redirectUri: process.env.GOOGLE_REDIRECT_URI as string,
   port: process.env.APP_PORT as string,
+  jwtSecret: process.env.JWT_SECRET_KEY || "12345678",
 };
 
 export { env };
