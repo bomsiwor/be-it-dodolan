@@ -6,5 +6,6 @@ const handler = Router();
 
 handler.get("/google/login-attempt", oauthController.handleGoogleLogin);
 handler.get("/google/callback", oauthController.handleGoogleCallback);
+handler.post("/token-request", oauthController.handleCodeCallback);
 
 export default handler;

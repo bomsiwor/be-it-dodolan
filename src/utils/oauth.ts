@@ -17,11 +17,14 @@ export interface IUserOauth {
 type TGoogleAccount = {
   sub: string;
   email_verified: boolean;
+  email: string;
   name: string;
   given_name: string;
   family_name: string;
   picture: string;
 };
+
+export type ELoginState = "login" | "register" | "updateData";
 
 const ALGORITHM = "aes-256-cbc";
 const ENCRYPTION_KEY = "12345678123456781234567812345678";
@@ -31,9 +34,12 @@ const google = new Google(env.clientId, env.clientSecret, env.redirectUri);
 /**
  * Encrypt user data and add code verifier at the end of the state.
  */
-export function encryptState(data: IUserOauth, codeVerifier: string): string {
+export function encryptState(data: IUserOauth, codeVerifier?: string): string {
   // Add timestamp to data
   data.timestamp ??= Date.now();
+
+  // Generate code verifier
+  codeVerifier ??= generateCodeVerifier();
 
   // Generate IV
   const iv = crypto.randomBytes(16);

@@ -1,3 +1,3 @@
 export function login() {
-  // Generate token
+  // Check if there new data
 }
